@@ -49,6 +49,21 @@ const Taskpage = () => {
         })
         .catch((err) => console.log(err))
     }
+      const    seletes=(id)=>{
+        const ID = id
+        console.log(id)
+        fetch(`http://localhost:8080/user/${ID}/tasks`,{
+        method :"DELETE"
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log(res)
+            getTask();
+        })
+        .catch((err) => console.log(err))
+       
+     
+      }
     return <div>
         <h1>Task page</h1> 
         <div>
@@ -58,7 +73,12 @@ const Taskpage = () => {
             <div>
                 {
                     data && data.length > 0 && data.map((singletask) => {
-                        return <p key={singletask._id}>{singletask.title}</p>
+                        return (
+                            <div style={{display:"flex"}}>
+                        <p key={singletask._id}>{singletask.title}</p>
+                        <button  onClick={()=>{seletes(singletask._id)}} >Delete</button>
+                        <button>edit</button>
+                        </div>)
                     })
                 }
             </div>
